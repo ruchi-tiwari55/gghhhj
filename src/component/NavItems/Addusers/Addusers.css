@@ -1,0 +1,48 @@
+.form-container {
+    width: 80%;
+    margin: 40px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack items vertically */
+    justify-content: flex-start; /* Align items to the top */
+    align-items: center; /* Center horizontally */
+  }
+  
+  .form {
+    width: 80%; /* Take full width of the container */
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+    width: 100%; /* Take full width of the container */
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input {
+    width: 100%; /* Take full width of the container */
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .submit-btn {
+    width: 100%; /* Take full width of the container */
+    padding: 10px 20px;
+    background-color: #263459;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #0056b3;
+  }
+  
