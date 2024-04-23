@@ -6,19 +6,27 @@ class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dropdownVisible: false
+      customerDropdownVisible: false,
+      userDropdownVisible: false // Renamed to userDropdownVisible
     };
-    this.toggleDropdown = this.toggleDropdown.bind(this);
+    this.toggleCustomerDropdown = this.toggleCustomerDropdown.bind(this);
+    this.toggleUserDropdown = this.toggleUserDropdown.bind(this); // Added this line
   }
 
-  toggleDropdown() {
+  toggleCustomerDropdown() {
     this.setState((prevState) => ({
-      dropdownVisible: !prevState.dropdownVisible
+      customerDropdownVisible: !prevState.customerDropdownVisible
+    }));
+  }
+
+  toggleUserDropdown() { // Added this method
+    this.setState((prevState) => ({
+      userDropdownVisible: !prevState.userDropdownVisible
     }));
   }
 
   render() {
-    const { dropdownVisible } = this.state;
+    const { customerDropdownVisible, userDropdownVisible } = this.state; // Added userDropdownVisible
 
     return (
       <div className='sidebar-container'>
@@ -35,17 +43,39 @@ class Sidebar extends Component {
             </Link>
           </li>
           <li className='nav-item'>
-            <Link to='postads' className='nav-link'>
-              <span className='fs-5'>Post Ads</span>
+            <Link to='CustomerAds' className='nav-link'>
+              <span className='fs-5'>Customer Ads</span>
             </Link>
           </li>
-          {/* Dropdown for Add Users */}
+
+          {/* Customers dropdown */}
           <li className='nav-item'>
-            <button className='nav-link' onClick={this.toggleDropdown}>
-              <span className='fs-5'>Users</span>
-              <i className={`bi bi-chevron-${dropdownVisible ? 'up' : 'down'}`} style={{ fontSize: '1.2rem', marginLeft: 'auto' }}></i>
+            <button className='nav-link' onClick={this.toggleCustomerDropdown}>
+              <span className='fs-5'>Customers</span>
+              <i className={`bi bi-chevron-${customerDropdownVisible ? 'up' : 'down'}`} style={{ fontSize: '1.2rem', marginLeft: 'auto' }}></i>
             </button>
-            {dropdownVisible && (
+            {customerDropdownVisible && (
+              <ul className='submenu'>
+                <li>
+                  <Link to='customers' className='submenu-link'>Total Customers</Link>
+                </li>
+                <li>
+                  <Link to='VerifeidCustomers' className='submenu-link'>Verified Customers</Link>
+                </li>
+                <li>
+                  <Link to='NonverifeidCustomers' className='submenu-link'>Non Verified Customers</Link>
+                </li>
+              </ul>
+            )}
+          </li>
+
+          {/* Users dropdown */}
+          <li className='nav-item'>
+            <button className='nav-link' onClick={this.toggleUserDropdown}>
+              <span className='fs-5'>Users</span>
+              <i className={`bi bi-chevron-${userDropdownVisible ? 'up' : 'down'}`} style={{ fontSize: '1.2rem', marginLeft: 'auto' }}></i>
+            </button>
+            {userDropdownVisible && (
               <ul className='submenu'>
                 <li>
                   <Link to='addusers' className='submenu-link'>Add Users</Link>
@@ -56,11 +86,13 @@ class Sidebar extends Component {
               </ul>
             )}
           </li>
+
           <li className='nav-item'>
-            <Link to='customers' className='nav-link'>
-              <span className='fs-5'>Customers</span>
+            <Link to='contactlist' className='nav-link'>
+              <span className='fs-5'>Contact List</span>
             </Link>
           </li>
+
           <li className='nav-item'>
             <Link to='response' className='nav-link'>
               <span className='fs-5'>Response</span>
@@ -78,7 +110,6 @@ class Sidebar extends Component {
 }
 
 export default Sidebar;
-
 
 
 
