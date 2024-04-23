@@ -88,6 +88,12 @@ class Sidebar extends Component {
           </li>
 
           <li className='nav-item'>
+            <Link to='contactlist' className='nav-link'>
+              <span className='fs-5'>Contact List</span>
+            </Link>
+          </li>
+
+          <li className='nav-item'>
             <Link to='response' className='nav-link'>
               <span className='fs-5'>Response</span>
             </Link>
