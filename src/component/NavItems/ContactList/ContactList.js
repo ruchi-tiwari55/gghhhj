@@ -1,39 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function UserList() {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage] = useState(5); 
+  const [usersPerPage] = useState(5); // Number of users to display per page
+  const [users, setUsers] = useState([]);
 
-  const users = [
-    {
-      name: 'John Doe',
-      businessProfile: 'Tech Consultant',
-      phone: '1234567890',
-      email: 'john@example.com',
-      message: 'Looking for business opportunities.',
-    },
-    {
-      name: 'Jane Smith',
-      businessProfile: 'Marketing Specialist',
-      phone: '9876543210',
-      email: 'jane@example.com',
-      message: 'Interested in collaboration.',
-    },
-    
-  ];
+  useEffect(() => {
+    // Fetch data from the API
+    fetch('https://lzycrazy-backend.onrender.com/api/contacts')
+      .then(response => response.json())
+      .then(data => setUsers(data))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
 
   // Pagination logic
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = users
-    .filter((user) => {
+    .filter(user => {
       const values = Object.values(user).join(' ').toLowerCase();
       return values.includes(searchTerm.toLowerCase());
     })
     .slice(indexOfFirstUser, indexOfLastUser);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = pageNumber => setCurrentPage(pageNumber);
 
   return (
     <div
@@ -60,141 +51,37 @@ function UserList() {
         type="text"
         placeholder="Search..."
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={e => setSearchTerm(e.target.value)}
         style={{
           marginBottom: '20px',
           padding: '8px',
           borderRadius: '5px',
           border: '1px solid #ddd',
           width: '100%',
-          // box-sizing: 'border-box',
         }}
       />
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
-            <th
-              style={{
-                padding: '10px',
-                borderBottom: '1px solid #ddd',
-                backgroundColor: '#f2f2f2',
-              }}
-            >
-              S.No.
-            </th>
-            <th
-              style={{
-                padding: '10px',
-                borderBottom: '1px solid #ddd',
-                backgroundColor: '#f2f2f2',
-              }}
-            >
-              Name
-            </th>
-            <th
-              style={{
-                padding: '10px',
-                borderBottom: '1px solid #ddd',
-                backgroundColor: '#f2f2f2',
-              }}
-            >
-              Business Profile
-            </th>
-            <th
-              style={{
-                padding: '10px',
-                borderBottom: '1px solid #ddd',
-                backgroundColor: '#f2f2f2',
-              }}
-            >
-              Phone
-            </th>
-            <th
-              style={{
-                padding: '10px',
-                borderBottom: '1px solid #ddd',
-                backgroundColor: '#f2f2f2',
-              }}
-            >
-              Email
-            </th>
-            <th
-              style={{
-                padding: '10px',
-                borderBottom: '1px solid #ddd',
-                backgroundColor: '#f2f2f2',
-              }}
-            >
-              Message
-            </th>
-            <th
-              style={{
-                padding: '10px',
-                borderBottom: '1px solid #ddd',
-                backgroundColor: '#f2f2f2',
-              }}
-            >
-              Action
-            </th>
+            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>S.No.</th>
+            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Name</th>
+            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Business Profile</th>
+            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Phone</th>
+            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Email</th>
+            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Message</th>
+            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Action</th>
           </tr>
         </thead>
         <tbody>
           {currentUsers.map((user, index) => (
             <tr key={index}>
-              <td
-                style={{
-                  padding: '10px',
-                  borderBottom: '1px solid #ddd',
-                }}
-              >
-                {index + 1 + (currentPage - 1) * usersPerPage}
-              </td>
-              <td
-                style={{
-                  padding: '10px',
-                  borderBottom: '1px solid #ddd',
-                }}
-              >
-                {user.name}
-              </td>
-              <td
-                style={{
-                  padding: '10px',
-                  borderBottom: '1px solid #ddd',
-                }}
-              >
-                {user.businessProfile}
-              </td>
-              <td
-                style={{
-                  padding: '10px',
-                  borderBottom: '1px solid #ddd',
-                }}
-              >
-                {user.phone}
-              </td>
-              <td
-                style={{
-                  padding: '10px',
-                  borderBottom: '1px solid #ddd',
-                }}
-              >
-                {user.email}
-              </td>
-              <td
-                style={{
-                  padding: '10px',
-                  borderBottom: '1px solid #ddd',
-                }}
-              >
-                {user.message}
-              </td>
-              <td
-                style={{
-                  padding: '10px',
-                  borderBottom: '1px solid #ddd',
-                }}
-              >
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{index + 1 + (currentPage - 1) * usersPerPage}</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.name}</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.businessProfile}</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.phone}</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.email}</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.message}</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
                 <button
                   style={{
                     padding: '5px 10px',
