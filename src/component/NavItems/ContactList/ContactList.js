@@ -77,7 +77,7 @@ function UserList() {
             <tr key={index}>
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{index + 1 + (currentPage - 1) * usersPerPage}</td>
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.name}</td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.businessProfile}</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.businessprofile}</td>
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.phone}</td>
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.email}</td>
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.message}</td>
