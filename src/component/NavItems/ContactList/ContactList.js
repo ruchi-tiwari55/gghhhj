@@ -5,6 +5,9 @@ function UserList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(5); // Number of users to display per page
   const [users, setUsers] = useState([]);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+
+  console.log(users,"rrrrrrrrrrrrrrrrrrrrrrrrrrr")
 
   useEffect(() => {
     // Fetch data from the API
@@ -13,6 +16,24 @@ function UserList() {
       .then(data => setUsers(data))
       .catch(error => console.error('Error fetching data:', error));
   }, []);
+
+  const handleDelete = (userId) => {
+    fetch(`https://lzycrazy-backend.onrender.com/api/contacts/${userId}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (response.ok) {
+          setUsers(users.filter((user) => user._id !== userId));
+          setShowSuccessPopup(true);
+          setTimeout(() => {
+            setShowSuccessPopup(false);
+          }, 5000);
+        } else {
+          console.error('Error deleting user:', response.statusText);
+        }
+      })
+      .catch((error) => console.error('Error deleting user:', error));
+  };
 
   // Pagination logic
   const indexOfLastUser = currentPage * usersPerPage;
@@ -91,9 +112,26 @@ function UserList() {
                     border: 'none',
                     cursor: 'pointer',
                   }}
+                  onClick={() => handleDelete(user._id)}
                 >
-                  Action
+                  Delete
                 </button>
+                {showSuccessPopup && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '20px',
+                      right: '20px',
+                      backgroundColor: 'green',
+                      color: 'white',
+                      padding: '10px',
+                      borderRadius: '5px',
+                      boxShadow: '0 2px 10px rgba(0, 0, 0, 0.2)',
+                    }}
+                  >
+                    Delete contact successfully
+                  </div>
+                )}
               </td>
             </tr>
           ))}

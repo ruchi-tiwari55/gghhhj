@@ -103,6 +103,11 @@ class Sidebar extends Component {
               <span className='fs-5'>About</span>
             </a>
           </li>
+          <li className='nav-item'>
+            <a href='' className='nav-link'>
+              <span className='fs-5'>Logout</span>
+            </a>
+          </li>
         </ul>
       </div>
     );
