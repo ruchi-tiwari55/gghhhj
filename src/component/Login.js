@@ -9,10 +9,19 @@ export default function Login(props) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
+  const Spinner = () => (
+    <div className="spinner">
+      <div className="loading-circle"></div>
+    </div>
+  );
+
   const handleLogin = async () => {
+    setIsLoading(true);
     try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       console.log('Logging in with email:', email, 'and password:', password); // Logging email and password
       
       const response = await axios.post('https://lzycrazy-backend.onrender.com/api/admins/login', {
@@ -27,6 +36,7 @@ export default function Login(props) {
         localStorage.setItem('authToken', token);
         
         setLoggedIn(true);
+        setIsLoading(false);
         props.loggedIn();
         navigate('/'); // Redirect to home page
         setError(null); // Clear previous errors if any
@@ -63,7 +73,10 @@ export default function Login(props) {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button onClick={handleLogin} className="login-button">Login</button>
+      {/* <button onClick={handleLogin} className="login-button">Login</button> */}
+      <button onClick={handleLogin} className="login-button" disabled={isLoading}>
+      {isLoading ? <Spinner /> : "Login"}
+    </button>
 
       {error && <div className="error-message">{error}</div>} {/* Display the error message */}
     </div>
