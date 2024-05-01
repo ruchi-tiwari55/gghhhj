@@ -23,14 +23,21 @@ function App() {
     setIsLoggedIn(true);
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  }
+
+  const token = localStorage.getItem('authToken');  
+
   return (
     <div>
-      {isLoggedIn ? (
+      {token ? (
         <div className="">
           <Header />
           <div className="d-flex">
-            <Sidebar />
+            <Sidebar logout={handleLogout} />
             <Routes>
+            {/* <Route path="/login" element={<Login />} /> */}
               <Route path="/" element={<Dashboard />} />
               <Route path="/customers" element={<Customers />} />
               <Route path="/VerifeidCustomers" element={<VerifeidCustomers />} />
