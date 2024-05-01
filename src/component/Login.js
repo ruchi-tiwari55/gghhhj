@@ -22,7 +22,7 @@ export default function Login(props) {
     setIsLoading(true);
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log('Logging in with email:', email, 'and password:', password); // Logging email and password
+      console.log('Logging in with email:', email, 'and password:', password); 
       
       const response = await axios.post('https://lzycrazy-backend.onrender.com/api/admins/login', {
         email,
@@ -37,20 +37,21 @@ export default function Login(props) {
         
         setLoggedIn(true);
         setIsLoading(false);
+
         props.loggedIn();
-        navigate('/'); // Redirect to home page
-        setError(null); // Clear previous errors if any
+        navigate('/'); 
+        setError(null); 
       } else {
-        setError('Invalid Credentials'); // Display error message
+        setError('Invalid Credentials'); 
       }
     } catch (error) {
-      console.error('An error occurred during login:', error); // Log error details
-      setError('An error occurred during login'); // Display error message
+      console.error('An error occurred during login:', error); 
+      setError('An error occurred during login'); 
     }
   };
 
   if (loggedIn) {
-    return <h1>Welcome {email}</h1>; // Show a welcome message if logged in
+    return <h1>Welcome {email}</h1>; 
   }
 
   return (
@@ -78,7 +79,7 @@ export default function Login(props) {
       {isLoading ? <Spinner /> : "Login"}
     </button>
 
-      {error && <div className="error-message">{error}</div>} {/* Display the error message */}
+      {error && <div className="error-message">{error}</div>} 
     </div>
   );
 }
