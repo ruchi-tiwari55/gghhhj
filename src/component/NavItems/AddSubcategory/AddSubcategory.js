@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import './Addcategory.css';
+// import './Addcategory.css';
 
-function FormPage() {
+function AddSubcategory() {
   const [formData, setFormData] = useState({
     Categoryname: '',
+    Subcategoryname: '',
     sequence: '',
     avatar: null,
   });
@@ -43,7 +44,7 @@ function FormPage() {
 
   return (
     <div className="form-container">
-      <h2>Add Categories</h2>
+      <h2>Add Sub-Categories</h2>
       <form onSubmit={handleSubmit} className="form">
         <div className="form-group">
           <label htmlFor="Categoryname">Category Name:</label>
@@ -52,6 +53,17 @@ function FormPage() {
             id="Categoryname"
             name="Categoryname"
             value={formData.Categoryname}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="Subcategoryname">Sub-Category Name:</label>
+          <input
+            type="text"
+            id="Subcategoryname"
+            name="Subcategoryname"
+            value={formData.Subcategoryname}
             onChange={handleInputChange}
             required
           />
@@ -81,79 +93,10 @@ function FormPage() {
   );
 }
 
-export default FormPage;
+export default AddSubcategory;
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useState } from 'react';
-// import './Addcategory.css'; 
-
-// function FormPage() {
-//   const [formData, setFormData] = useState({
-//     categoryName: '',
-//     avatar: null,
-//   });
-
-//   const handleInputChange = (event) => {
-//     const { name, value, type, files } = event.target;
-//     let newValue = type === 'file' ? (files[0] || null) : value;
-//     setFormData({ ...formData, [name]: newValue });
-//   };
-
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     console.log(formData);
-//   };
-
-//   return (
-//     <div className="form-container">
-//       <h2>Add Categories</h2>
-//       <form onSubmit={handleSubmit} className="form">
-//         <div className="form-group">
-//           <label htmlFor="categoryName">Category Name:</label>
-//           <input
-//             type="text"
-//             id="categoryName"
-//             name="categoryName"
-//             value={formData.categoryName}
-//             onChange={handleInputChange}
-//             required
-//           />
-//         </div>
-//         <div className="form-group">
-//           <label htmlFor="avatar">Avatar:</label>
-//           <input
-//             type="file"
-//             id="avatar"
-//             name="avatar"
-//             onChange={handleInputChange}
-//           />
-//         </div>
-//         <button type="submit" className="submit-btn">Submit</button>
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default FormPage;

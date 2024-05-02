@@ -15,6 +15,10 @@ import Viewusers from './component/NavItems/Viewusers/Viewusers';
 import Login from './component/Login';
 import { useState } from 'react'; // no Redux
 import ContactList from './component/NavItems/ContactList/ContactList';
+import AddShopusers from './component/NavItems/AddShopusers/AddShopusers';
+import ProductDescription from './component/NavItems/ProductDescription/ProductDescription';
+import BannerDetails from './component/NavItems/BannerDetails/BannerDetails';
+import AddSubcategory from './component/NavItems/AddSubcategory/AddSubcategory';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -48,6 +52,11 @@ function App() {
               <Route path="/addusers" element={<Addusers />} />
               <Route path="/viewusers" element={<Viewusers />} />
               <Route path="/contactlist" element={<ContactList />} />
+              <Route path="/AddShopusers" element={<AddShopusers />} />
+              <Route path="/ProductDescription" element={<ProductDescription />} />
+              <Route path="/BannerDetails" element={<BannerDetails />} />
+              <Route path="/AddSubcategory" element ={<AddSubcategory/>} />
+
             </Routes>
           </div>
         </div>
