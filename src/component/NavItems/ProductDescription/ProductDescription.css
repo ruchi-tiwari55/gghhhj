@@ -108,3 +108,16 @@
 .small-input input {
   width: 100px; /* Set a smaller width for price input */
 }
+
+
+.form-group {
+  margin-bottom: 1em;
+}
+
+.input-common {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5em;
+  font-size: 1em;
+  width: 64.4%;
+}

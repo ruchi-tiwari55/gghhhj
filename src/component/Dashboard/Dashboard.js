@@ -7,7 +7,7 @@ function HomePage() {
   return (
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-md-10">
+        <div className="col-md-12">
           <div
             className="card border-0 shadow-lg rounded"
             style={{ marginTop: "30px", marginBottom: "30px" }}

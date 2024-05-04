@@ -1,48 +1,71 @@
 .form-container {
-    width: 80%;
-    margin: 40px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    display: flex; 
-    flex-direction: column; 
-    justify-content: flex-start; 
-    align-items: center; 
-  }
-  
-  .form {
-    width: 80%; 
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-    width: 100%; 
-  }
-  
-  label {
-    font-weight: bold;
-  }
-  
-  input {
-    width: 100%; 
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  
-  .submit-btn {
-    width: 100%; 
-    padding: 10px 20px;
-    background-color: #263459;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .submit-btn:hover {
-    background-color: #0056b3;
-  }
-  
+  width: 90%; 
+  margin: 20px auto; 
+  /* padding: 20px; */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: flex-start; 
+  align-items: center; 
+}
+
+.heading-card {
+  width: 100%; /* Same width as the main container */
+  background-color: #f8f9fa; 
+  padding: 10px;
+  border: 1px solid #dee2e6; 
+  border-radius: 5px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  margin-bottom: 15px; /* Space between the heading card and the form */
+}
+
+.heading-icon {
+  margin-right: 10px; /* Space between the icon and the heading text */
+}
+
+.form {
+  width: 100%; 
+  padding: 20px;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left; 
+}
+
+label {
+  font-weight: bold;
+}
+
+input {
+  width: 100%; 
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.submit-group {
+  display: flex;
+  justify-content: center; /* Center the submit button */
+}
+
+.submi-btn {
+  width: 25%; /* Make the submit button narrower */
+  padding: 10px 20px;
+  background-color: #263459;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submi-btn:hover {
+  background-color: #0056b3;
+}
