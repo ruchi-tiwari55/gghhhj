@@ -188,6 +188,7 @@ const Sidebar = (props) => {
   const [customerDropdownVisible, setCustomerDropdownVisible] = useState(false);
   const [userDropdownVisible, setUserDropdownVisible] = useState(false);
   const [categoryDropdownVisible, setCategoryDropdownVisible] = useState(false);
+  const [addshopDropdownVisible, setAddShopDropdownVisible] = useState(false);
 
   const navigate = useNavigate();
 
@@ -202,6 +203,11 @@ const Sidebar = (props) => {
   const toggleCategoryDropdown = () => {
     setCategoryDropdownVisible(!categoryDropdownVisible);
   };
+
+  const toggleAddShopDropdown = () => {
+    setAddShopDropdownVisible(!addshopDropdownVisible);
+  };
+
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
@@ -248,21 +254,78 @@ const Sidebar = (props) => {
           )}
         </li>
 
-        {/* Product Description */}
+
+
+
+
+
+
+
+        {/* Add Shop Dropdown */}
         <li className="nav-item">
+          <button className="nav-link" onClick={toggleAddShopDropdown}>
+            <i className="fas fa-folder"></i> 
+            <span className="fontsize">Add Shop</span>
+            <i
+              className={`fas fa-chevron-${addshopDropdownVisible ? "up" : "down"}`}
+              style={{ fontSize: "1.2rem", marginLeft: "auto" }}
+            ></i>
+          </button>
+          {addshopDropdownVisible && (
+            <ul className="submenu">
+               <li>
+                <Link to="/addshopusers" className="submenu-link">
+                  <i className="fas fa-folder-plus"></i> 
+                  &nbsp;&nbsp;Shop User
+                </Link>
+              </li>
+              <li>
+                <Link to="/ShopCategory" className="submenu-link">
+                  <i className="fas fa-folder-plus"></i> 
+                  &nbsp;&nbsp;Shop Category
+                </Link>
+              </li>
+              <li>
+                <Link to="/productdescription" className="submenu-link">
+                  <i className="fas fa-folder-open"></i> 
+                  &nbsp;&nbsp;Product Desc.
+                </Link>
+              </li>
+            </ul>
+          )}
+        </li>
+
+      
+
+
+        
+
+        {/* Add Shop Users */}
+        {/* <li className="nav-item">
+          <Link to="/addshopusers" className="nav-link">
+            <i className="fas fa-store"></i> 
+            <span className="fontsize">Shop Users</span>
+          </Link>
+        </li> */}
+
+         {/* Add Shop Category */}
+         {/* <li className="nav-item">
+          <Link to="/ShopCategory" className="nav-link">
+            <i className="fas fa-store"></i> 
+            <span className="fontsize">Shop Category</span>
+          </Link>
+        </li> */}
+
+          {/* Product Description */}
+          {/* <li className="nav-item">
           <Link to="/productdescription" className="nav-link">
             <i className="fas fa-info-circle"></i> 
             <span className="fontsize">Product Desc.</span>
           </Link>
-        </li>
+        </li> */}
 
-        {/* Add Shop Users */}
-        <li className="nav-item">
-          <Link to="/addshopusers" className="nav-link">
-            <i className="fas fa-store"></i> 
-            <span className="fontsize">Add Shop Users</span>
-          </Link>
-        </li>
+
+
 
         {/* Banner Details */}
         <li className="nav-item">
