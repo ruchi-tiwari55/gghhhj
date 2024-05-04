@@ -19,6 +19,7 @@ import AddShopusers from './component/NavItems/AddShopusers/AddShopusers';
 import ProductDescription from './component/NavItems/ProductDescription/ProductDescription';
 import BannerDetails from './component/NavItems/BannerDetails/BannerDetails';
 import AddSubcategory from './component/NavItems/AddSubcategory/AddSubcategory';
+import ShopCategory from './component/NavItems/ShopCategory/ShopCategory';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,7 +36,7 @@ function App() {
 
   return (
     <div>
-      {token ? (
+      {/* {token ? ( */}
         <div className="">
           <Header />
           <div className="d-flex">
@@ -56,13 +57,15 @@ function App() {
               <Route path="/ProductDescription" element={<ProductDescription />} />
               <Route path="/BannerDetails" element={<BannerDetails />} />
               <Route path="/AddSubcategory" element ={<AddSubcategory/>} />
+              <Route path="/ShopCategory" element ={<ShopCategory/>} />
+
 
             </Routes>
           </div>
         </div>
-      ) : (
+      {/* ) : ( */}
         <Login loggedIn={handleLogin} />
-      )}
+      {/* )} */}
     </div>
   );
 }
