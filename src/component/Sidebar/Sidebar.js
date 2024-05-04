@@ -215,16 +215,16 @@ const Sidebar = (props) => {
         {/* Dashboard */}
         <li className="nav-item">
           <Link to="/" className="nav-link">
-            <i className="fas fa-tachometer-alt"></i> {/* Dashboard Icon */}
-            <span className="fs-5">Dashboard</span>
+            <i className="fas fa-tachometer-alt"></i> 
+            <span className="fontsize">Dashboard</span>
           </Link>
         </li>
 
         {/* Category Dropdown */}
         <li className="nav-item">
           <button className="nav-link" onClick={toggleCategoryDropdown}>
-            <i className="fas fa-folder"></i> {/* Folder Icon */}
-            <span className="fs-5">Category</span>
+            <i className="fas fa-folder"></i> 
+            <span className="fontsize">Category</span>
             <i
               className={`fas fa-chevron-${categoryDropdownVisible ? "up" : "down"}`}
               style={{ fontSize: "1.2rem", marginLeft: "auto" }}
@@ -234,14 +234,14 @@ const Sidebar = (props) => {
             <ul className="submenu">
               <li>
                 <Link to="/addcategory" className="submenu-link">
-                  <i className="fas fa-folder-plus"></i> {/* Add Folder Icon */}
-                  Add Category
+                  <i className="fas fa-folder-plus"></i> 
+                  &nbsp;&nbsp;Add Category
                 </Link>
               </li>
               <li>
                 <Link to="/addsubcategory" className="submenu-link">
-                  <i className="fas fa-folder-open"></i> {/* Open Folder Icon */}
-                  Add Sub-category
+                  <i className="fas fa-folder-open"></i> 
+                  &nbsp;&nbsp;Add Sub-category
                 </Link>
               </li>
             </ul>
@@ -251,32 +251,32 @@ const Sidebar = (props) => {
         {/* Product Description */}
         <li className="nav-item">
           <Link to="/productdescription" className="nav-link">
-            <i className="fas fa-info-circle"></i> {/* Info Circle Icon */}
-            <span className="fs-5">Product Description</span>
+            <i className="fas fa-info-circle"></i> 
+            <span className="fontsize">Product Desc.</span>
           </Link>
         </li>
 
         {/* Add Shop Users */}
         <li className="nav-item">
           <Link to="/addshopusers" className="nav-link">
-            <i className="fas fa-store"></i> {/* Store Icon */}
-            <span className="fs-5">Add Shop Users</span>
+            <i className="fas fa-store"></i> 
+            <span className="fontsize">Add Shop Users</span>
           </Link>
         </li>
 
         {/* Banner Details */}
         <li className="nav-item">
           <Link to="/bannerdetails" className="nav-link">
-            <i className="fas fa-ad"></i> {/* Ad Icon */}
-            <span className="fs-5">Banner Details</span>
+            <i className="fas fa-ad"></i> 
+            <span className="fontsize">Banner Details</span>
           </Link>
         </li>
 
         {/* Customer Dropdown */}
         <li className="nav-item">
           <button className="nav-link" onClick={toggleCustomerDropdown}>
-            <i className="fas fa-users"></i> {/* Users Icon */}
-            <span className="fs-5">Customers</span>
+            <i className="fas fa-users"></i> 
+            <span className="fontsize">Customers</span>
             <i
               className={`fas fa-chevron-${customerDropdownVisible ? "up" : "down"}`}
               style={{ fontSize: "1.2rem", marginLeft: "auto" }}
@@ -286,20 +286,20 @@ const Sidebar = (props) => {
             <ul className="submenu">
               <li>
                 <Link to="/customers" className="submenu-link">
-                  <i className="fas fa-user-friends"></i> {/* User Friends Icon */}
-                  Total Customers
+                  <i className="fas fa-user-friends"></i> 
+                  &nbsp;&nbsp; Total Customers
                 </Link>
               </li>
               <li>
-                <Link to="/verifiedcustomers" className="submenu-link">
-                  <i className="fas fa-check-circle"></i> {/* Check Circle Icon */}
-                  Verified Customers
+                <Link to="/VerifeidCustomers" className="submenu-link">
+                  <i className="fas fa-check-circle"></i> 
+                  &nbsp;&nbsp; Verified Customers
                 </Link>
               </li>
               <li>
-                <Link to="/nonverifiedcustomers" classclass="submenu-link">
-                  <i className="fas fa-times-circle"></i> {/* Times Circle Icon */}
-                  Non-Verified Customers
+                <Link to="/NonverifeidCustomers" classclass="submenu-link">
+                  <i className="fas fa-times-circle"></i> 
+                  &nbsp;&nbsp;Non-Verified Customers
                 </Link>
               </li>
             </ul>
@@ -309,8 +309,8 @@ const Sidebar = (props) => {
         {/* User Dropdown */}
         <li className="nav-item">
           <button className="nav-link" onClick={toggleUserDropdown}>
-            <i className="fas fa-user"></i> {/* User Icon */}
-            <span className="fs-5">Users</span>
+            <i className="fas fa-user"></i> 
+            <span className="fontsize">Users</span>
             <i
               className={`fas fa-chevron-${userDropdownVisible ? "up" : "down"}`}
               style={{ fontSize: "1.2rem", marginLeft: "auto" }}
@@ -320,14 +320,14 @@ const Sidebar = (props) => {
             <ul className="submenu">
               <li>
                 <Link to="/addusers" className="submenu-link">
-                  <i className="fas fa-user-plus"></i> {/* User Plus Icon */}
-                  Add Users
+                  <i className="fas fa-user-plus"></i> 
+                  &nbsp;&nbsp;  Add Users
                 </Link>
               </li>
               <li>
                 <Link to="/viewusers" className="submenu-link">
-                  <i className="fas fa-users"></i> {/* Users Icon */}
-                  View Users
+                  <i className="fas fa-users"></i> 
+                  &nbsp;&nbsp; View Users
                 </Link>
               </li>
             </ul>
@@ -337,16 +337,16 @@ const Sidebar = (props) => {
         {/* Contact List */}
         <li className="nav-item">
           <Link to="/contactlist" className="nav-link">
-            <i className="fas fa-address-book"></i> {/* Address Book Icon */}
-            <span className="fs-5">Contact List</span>
+            <i className="fas fa-address-book"></i> 
+            <span className="fontsize">Contact List</span>
           </Link>
         </li>
 
         {/* Logout */}
         <li className="nav-item">
           <a href="#" className="nav-link" onClick={handleLogout}>
-            <i className="fas fa-sign-out-alt"></i> {/* Sign Out Icon */}
-            <span className="fs-5">Logout</span>
+            <i className="fas fa-sign-out-alt"></i> 
+            <span className="fontsize">Logout</span>
           </a>
         </li>
       </ul>

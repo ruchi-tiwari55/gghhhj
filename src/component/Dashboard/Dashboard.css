@@ -52,8 +52,13 @@
   /* Adjust card width */
   @media (min-width: 768px) {
     .col-md-4 {
-      flex: 0 0 25%; /* Change the width to 30% */
-      max-width: 25%; /* Ensure max width is 30% */
+      flex: 0 0 25%; 
+      max-width: 25%; 
     }
   }
   
+  @media (min-width: 992px) {
+    .container, .container-lg, .container-md, .container-sm {
+        max-width: 80%;
+    }
+}
