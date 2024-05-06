@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFolderOpen, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 function UserForm() {
   const [userData, setUserData] = useState({
     name: '',
     mobile: '',
     email: '',
-    entryDate: ''
+    state: '',
+    city: '',
+    edit: '',
+    password: ''
   });
   const [users, setUsers] = useState([
-    { name: 'John Doe', mobile: '1234567890', email: 'john@example.com', entryDate: '2024-04-17' },
-    { name: 'Jane Smith', mobile: '9876543210', email: 'jane@example.com', entryDate: '2024-04-18' },
+    { name: 'John Doe', mobile: '1234567890', email: 'john@example.com', password: "123@aman" , state: 'Bihar', city: "Gaya"},
+    { name: 'Jane Smith', mobile: '9876543210', email: 'jane@example.com', password: "987@abcd" , state: 'Haryana', city: "Gurgaon" },
     // Add more example data if needed
   ]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -32,7 +37,7 @@ function UserForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setUsers([...users, userData]);
-    setUserData({ name: '', mobile: '', email: '', entryDate: '' });
+    setUserData({ name: '', mobile: '', email: '',password: '', state: '',city: '', edit: '' });
   };
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -50,10 +55,18 @@ function UserForm() {
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
+           <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>S.No.</th>
             <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Name</th>
             <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Mobile No.</th>
             <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Email</th>
-            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Entry Date</th>
+            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>password</th>
+            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>State</th>
+            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>City</th>
+            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Edit</th>
+            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Delete</th>
+
+
+
           </tr>
         </thead>
         <tbody>
@@ -63,7 +76,24 @@ function UserForm() {
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.name}</td>
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.mobile}</td>
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.email}</td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.entryDate}</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.password}</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.state}</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.city}</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.edit}
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    style={{ cursor: 'pointer', color: '#007bff', marginRight: '10px' }}
+                    onClick={() => console.log('Edit clicked for', user.categoryname)}
+                  />
+                </td>
+                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.delete}
+                  <FontAwesomeIcon
+                     icon={faTrashAlt}
+                    style={{ cursor: 'pointer', color: '#ff4c4c' }}
+                    onClick={() => console.log('Delete clicked for', user.categoryname)}
+                  />
+                </td>
+
             </tr>
           ))}
         </tbody>
