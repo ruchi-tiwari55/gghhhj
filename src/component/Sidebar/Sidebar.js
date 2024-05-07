@@ -189,6 +189,8 @@ const Sidebar = (props) => {
   const [userDropdownVisible, setUserDropdownVisible] = useState(false);
   const [categoryDropdownVisible, setCategoryDropdownVisible] = useState(false);
   const [addshopDropdownVisible, setAddShopDropdownVisible] = useState(false);
+  const [bannerDropdownVisible, setBannerDropdownVisible] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -206,6 +208,10 @@ const Sidebar = (props) => {
 
   const toggleAddShopDropdown = () => {
     setAddShopDropdownVisible(!addshopDropdownVisible);
+  };
+
+  const toggleBannerDropdown = () => {
+    setBannerDropdownVisible(!bannerDropdownVisible);
   };
 
 
@@ -324,16 +330,55 @@ const Sidebar = (props) => {
           </Link>
         </li> */}
 
+<li className="nav-item">
+          <button className="nav-link" onClick={toggleBannerDropdown}>
+            <i className="fas fa-folder"></i> 
+            <span className="fontsize">Banner</span>
+            <i
+              className={`fas fa-chevron-${bannerDropdownVisible ? "up" : "down"}`}
+              style={{ fontSize: "1.2rem", marginLeft: "auto" }}
+            ></i>
+          </button>
+          {bannerDropdownVisible && (
+            <ul className="submenu">
+              <li>
+                <Link to="/bannerdetails" className="submenu-link">
+                  <i className="fas fa-folder-plus"></i> 
+                  &nbsp;&nbsp;LzyCrazy Ads
+                </Link>
+              </li>
+              <li>
+                <Link to="/AdsBanner" className="submenu-link">
+                  <i className="fas fa-folder-open"></i> 
+                  &nbsp;&nbsp;LzyCrazy Banner
+                </Link>
+              </li>
+            </ul>
+          )}
+        </li>
 
 
 
-        {/* Banner Details */}
-        <li className="nav-item">
+
+
+
+
+
+
+        {/* <li className="nav-item">
           <Link to="/bannerdetails" className="nav-link">
             <i className="fas fa-ad"></i> 
-            <span className="fontsize">Banner Details</span>
+            <span className="fontsize">LzyCrazy Ads</span>
           </Link>
         </li>
+        <li className="nav-item">
+          <Link to="/AdsBanner" className="nav-link">
+            <i className="fas fa-ad"></i> 
+            <span className="fontsize">LzyCrazy Banner</span>
+          </Link>
+        </li> */}
+
+
 
         {/* Customer Dropdown */}
         <li className="nav-item">

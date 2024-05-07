@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
 import { faBoxOpen } from "@fortawesome/free-solid-svg-icons";
+import './ProductDescription.css'
 
 function ProductDescription() {
   const [formData, setFormData] = useState({
     selectCategory: "",
     addProductName: "",
     avatar: null,
-    addTitle: "",
+    sellingPrice: "",
     addDescription: "",
   });
 
@@ -54,14 +55,14 @@ function ProductDescription() {
       selectCategory: "Category A",
       addProductName: "Product 1",
       avatar: "",
-      addTitle: "Title 1",
+      sellingPrice: "20",
       addDescription: "Description 1",
     },
     {
       selectCategory: "Category B",
       addProductName: "Product 2",
       avatar: "",
-      addTitle: "Title 2",
+      sellingPrice: "59",
       addDescription: "Description 2",
     },
   ]);
@@ -82,41 +83,69 @@ function ProductDescription() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+
+
+
+
+
+
+
+
+  const [images, setImages] = useState([]);
+
+  const handleInputChanges = (e) => {
+    const files = Array.from(e.target.files);
+
+    // Check if the total number of images is within the limit
+    if (images.length + files.length > 8) {
+      alert('You can upload a maximum of 8 images');
+      return;
+    }
+
+    // Read and store the new images as base64 strings for preview
+    const newImages = files.map((file) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      return new Promise((resolve) => {
+        reader.onload = () => {
+          resolve(reader.result);
+        };
+      });
+    });
+
+    
+    Promise.all(newImages).then((results) => {
+      setImages([...images, ...results]);
+    });
+  };
+
+    const handleDeleteImage = (index) => {
+    const updatedImages = images.filter((_, i) => i !== index);
+    setImages(updatedImages);
+  };
+
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%"}}>
       <div className="form-container with-navbar-gap">
         <div className="heading-card">
-          <FontAwesomeIcon icon={faBoxOpen} className="heading-icon" />
-          <h2>Add Product</h2>
+          <div className="header-product">
+          {/* <FontAwesomeIcon icon={faBoxOpen} className="heading-icon" /> */}
+          <h2>Add Shop Product</h2>
+          </div>
         </div>
         <form
           onSubmit={handleSubmit}
           className="form"
           style={{ width: "100%" }}
         >
-          {/* <div className="form-group">
-            <label htmlFor="selectCategory">Select Category:</label>
-            <select
-              id="selectCategory"
-              name="selectCategory"
-              value={formData.selectCategory}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="">--Please choose an option--</option>
-              <option value="Category A">Category A</option>
-              <option value="Category B">Category B</option>
-              <option value="Category C">Category C</option>
-              <option value="Category D">Category D</option>
-            </select>
-          </div> */}
+       
 
-          <div className="form-group">
-            <label htmlFor="selectCategory">Select Category:</label>
-            <select
+          <div className="form-box">
+            <label className="label-box" htmlFor="selectCategory">Select Category:</label>
+            <select className="input-box"
               id="selectCategory"
               name="selectCategory"
-              className="input-common"
               value={formData.selectCategory}
               onChange={handleInputChange}
               required
@@ -129,54 +158,97 @@ function ProductDescription() {
             </select>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="addProductName">Add Product Name:</label>
-            <input
+          <div className="form-box">
+            <label className="label-box" htmlFor="addProductName">Add Product Name:</label>
+            <input className="input-box"
               type="text"
               id="addProductName"
               name="addProductName"
               value={formData.addProductName}
               onChange={handleInputChange}
+              placeholder="Enter a Product"
               required
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="avatar">Add Icon:</label>
-            <input
+          <div className="form-box" >
+      <label className="label-box" htmlFor="addDescription">Add Description:</label>
+      <textarea
+        className="input-box"
+        type="text"
+        id="addDescription"
+        name="addDescription"
+        value={formData.addDescription}
+        onChange={handleInputChange}
+        placeholder="Enter a description"
+        required
+        style={{height:"80px"}}
+      />
+    </div>
+
+          <div className="form-box">
+            <label className="label-box" htmlFor="addTitle">Selling Price:</label>
+            <input className="input-box"
+              type="number"
+              id="sellingPrice"
+              name="sellingPrice"
+              value={formData.sellingPrice}
+              onChange={handleInputChange}
+              placeholder="Enter a Price"
+              required
+            />
+          </div>
+
+          {/* <div className="form-box">
+            <label className="label-box" htmlFor="avatar">Add Image:</label>
+            <input className="input-box"
               type="file"
               id="avatar"
               name="avatar"
               onChange={handleInputChange}
             />
-          </div>
+          </div> */}
 
-          <div className="form-group">
-            <label htmlFor="addTitle">Add Title:</label>
-            <input
-              type="text"
-              id="addTitle"
-              name="addTitle"
-              value={formData.addTitle}
-              onChange={handleInputChange}
-              required
+<div>
+      <div className="form-box">
+        <label className="label-box" htmlFor="avatar">
+          Add Image:
+        </label>
+        <input
+          className="input-box"
+          type="file"
+          id="avatar"
+          name="avatar"
+          onChange={handleInputChanges}
+          multiple 
+        />
+      </div>
+
+      {/* Display previews of uploaded images */}
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        {images.map((image, index) => (
+          <div key={index} style={{ margin: '5px' }}>
+            <img
+              src={image}
+              alt={`Preview ${index}`}
+              style={{ width: '100px', height: '100px', objectFit: 'cover' }}
             />
           </div>
+        ))}
+      </div>
+    </div>
 
-          <div className="form-group">
-            <label htmlFor="addDescription">Add Description:</label>
-            <input
-              type="text"
-              id="addDescription"
-              name="addDescription"
-              value={formData.addDescription}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
+
+
+
+
+
+        
+
+         
 
           <div className="form-group submit-group">
-            <button type="submit" className="submi-btn">
+            <button type="submit" className="shop-submit">
               Submit
             </button>
           </div>
@@ -212,8 +284,8 @@ function ProductDescription() {
                 <th>S.No.</th>
                 <th>Category Name</th>
                 <th>Product Name</th>
-                <th>Icon</th>
-                <th>Title</th>
+                <th>Image</th>
+                <th>Price(In Rs) </th>
                 <th>Description</th>
                 {/* <th>Action</th> */}
               </tr>
@@ -225,22 +297,9 @@ function ProductDescription() {
                   <td>{user.selectCategory}</td>
                   <td>{user.addProductName}</td>
                   <td>{user.avatar ? "Icon Present" : "No Icon"}</td>
-                  <td>{user.addTitle}</td>
+                  <td>{user.sellingPrice}</td>
                   <td>{user.addDescription}</td>
-                  {/* <td>
-                  <button
-                    style={{
-                      padding: '5px 10px',
-                      borderRadius: '3px',
-                      backgroundColor: '#007bff',
-                      color: '#fff',
-                      border: 'none',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    Action
-                  </button>
-                </td> */}
+               
                 </tr>
               ))}
             </tbody>
