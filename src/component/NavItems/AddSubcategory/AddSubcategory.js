@@ -16,10 +16,18 @@ function AddSubcategory() {
     avatar: null,
   });
 
+  const [imagePreview, setImagePreview] = useState(null);
+
   const handleInputChange = (event) => {
     const { name, type, value, files } = event.target;
     const newValue = type === "file" ? files[0] || null : value;
     setFormData({ ...formData, [name]: newValue });
+
+    // Update image preview for the "avatar" field
+    if (name === "avatar" && files && files[0]) {
+      const file = files[0];
+      setImagePreview(URL.createObjectURL(file));
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -53,7 +61,6 @@ function AddSubcategory() {
     }
   };
 
-  // Users list for the table
   const [users, setUsers] = useState([
     {
       selectCategory: "Farm",
@@ -93,7 +100,6 @@ function AddSubcategory() {
 
   return (
     <div style={{ width: "100%" }}>
-      {/* Form section */}
       <div className="form-container with-navbar-gap">
         <div className="heading-card">
           <FontAwesomeIcon icon={faFolderOpen} className="heading-icon" />
@@ -104,35 +110,6 @@ function AddSubcategory() {
           className="form"
           style={{ width: "100%" }}
         >
-          {/* <div className="form-group">
-            <label htmlFor="selectCategory">Select Category:</label>
-            <input
-              type="text"
-              id="selectCategory"
-              name="selectCategory"
-              value={formData.selectCategory}
-              onChange={handleInputChange}
-              required
-            />
-          </div> */}
-
-          {/* <div className="form-group">
-      <label htmlFor="selectCategory">Select Category:</label>
-      <select
-        id="selectCategory"
-        name="selectCategory"
-        value={formData.selectCategory}
-        onChange={handleInputChange}
-        required
-      >
-        <option value="">--Please choose an option--</option>
-        <option value="category1">Category 1</option>
-        <option value="category2">Category 2</option>
-        <option value="category3">Category 3</option>
-        <option value="category4">Category 4</option>
-      </select>
-    </div> */}
-
           <div className="form-group">
             <label htmlFor="selectCategory">Select Category:</label>
             <select
@@ -195,6 +172,11 @@ function AddSubcategory() {
               name="avatar"
               onChange={handleInputChange}
             />
+            {imagePreview && (
+              <div className="image-preview">
+                <img src={imagePreview} alt="Preview" style={{ maxHeight: "100px", maxWidth: "100px" }} />
+              </div>
+            )}
           </div>
 
           <div className="form-group submit-group">
@@ -204,7 +186,6 @@ function AddSubcategory() {
           </div>
         </form>
 
-        {/* User Table Section */}
         <div
           style={{
             width: "100%",
@@ -240,7 +221,6 @@ function AddSubcategory() {
                 <th>Add Icon</th>
                 <th>Add Form Type</th>
                 <th>Shop</th>
-                {/* <th>Is Verified</th> */}
                 <th>Edit</th>
                 <th>Delete</th>
               </tr>
@@ -255,7 +235,6 @@ function AddSubcategory() {
                   <td>{user.avatar}</td>
                   <td>{user.addFormType}</td>
                   <td>{user.shop}</td>
-                  {/* <td>{user.isVerified ? 'Yes' : 'No'}</td> */}
                   <td>
                     <FontAwesomeIcon
                       icon={faEdit}
@@ -264,18 +243,14 @@ function AddSubcategory() {
                         color: "#007bff",
                         marginRight: "10px",
                       }}
-                      onClick={() =>
-                        console.log("Edit clicked for", user.categoryname)
-                      }
+                      onClick={() => console.log("Edit clicked for", user.addSubCategory)}
                     />
                   </td>
                   <td>
                     <FontAwesomeIcon
                       icon={faTrashAlt}
                       style={{ cursor: "pointer", color: "#ff4c4c" }}
-                      onClick={() =>
-                        console.log("Delete clicked for", user.categoryname)
-                      }
+                      onClick={() => console.log("Delete clicked for", user.addSubCategory)}
                     />
                   </td>
                 </tr>

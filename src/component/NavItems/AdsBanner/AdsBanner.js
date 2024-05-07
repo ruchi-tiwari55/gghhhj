@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import "./BannerDetails.css";
+import "./AdsBanner.css";
 
-function App() {
+function AdsBanner() {
   // Update the initial form data structure
   const [formData, setFormData] = useState({
     category: "",
-    select: "",
+    // select: "",
     bannerName: "",
     sequence: "",
     bannerLink: "",
@@ -17,7 +17,7 @@ function App() {
   const [tableData, setTableData] = useState([
     {
       category: "Investor",
-      select: "1",
+    //   select: "1",
       bannerName: "Tech Sale",
       sequence: 1,
       bannerLink: "https://example.com/tech-sale",
@@ -25,7 +25,7 @@ function App() {
     },
     {
       category: "Advertising",
-      select: "2",
+    //   select: "2",
       bannerName: "Book Bonanza",
       sequence: 2,
       bannerLink: "https://example.com/book-bonanza",
@@ -44,7 +44,7 @@ function App() {
 
     const newEntry = {
       category: formData.category,
-      select: formData.select,
+    //   select: formData.select,
       bannerName: formData.bannerName,
       sequence: formData.sequence,
       bannerLink: formData.bannerLink,
@@ -56,7 +56,7 @@ function App() {
     // Reset form fields
     setFormData({
       category: "",
-      select: "",
+    //   select: "",
       bannerName: "",
       sequence: "",
       bannerLink: "",
@@ -72,7 +72,7 @@ function App() {
       <div className="form-container with-navbar-gap">
         <div className="heading-card">
           <div className="header-product">
-            <h2>LzyCrazy Ads</h2>
+            <h2>LzyCrazy Banner</h2>
           </div>
         </div>
         <form onSubmit={handleSubmit} className="form" style={{ width: "100%" }}>
@@ -97,26 +97,7 @@ function App() {
             </select>
           </div>
 
-            {/* Select */}
-            <div className="form-box">
-            <label className="label-box" htmlFor="category">Select:</label>
-            <select className="input-box"
-              id="category"
-              name="category"
-              value={formData.category}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="">--Select--</option>
-              <option value="Electronics">1</option>
-              <option value="Books">2</option>
-              <option value="Fashion">3</option>
-              <option value="Food">4</option>
-              <option value="Fashion">5</option>
-              <option value="Food">6</option>
-              {/* Add more categories as needed */}
-            </select>
-          </div>
+           
 
           {/* Banner Name */}
           <div className="form-box">
@@ -241,4 +222,4 @@ function App() {
   );
 }
 
-export default App;
+export default AdsBanner;

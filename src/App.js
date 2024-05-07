@@ -20,6 +20,7 @@ import ProductDescription from './component/NavItems/ProductDescription/ProductD
 import BannerDetails from './component/NavItems/BannerDetails/BannerDetails';
 import AddSubcategory from './component/NavItems/AddSubcategory/AddSubcategory';
 import ShopCategory from './component/NavItems/ShopCategory/ShopCategory';
+import AdsBanner from './component/NavItems/AdsBanner/AdsBanner';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -58,6 +59,7 @@ function App() {
               <Route path="/BannerDetails" element={<BannerDetails />} />
               <Route path="/AddSubcategory" element ={<AddSubcategory/>} />
               <Route path="/ShopCategory" element ={<ShopCategory/>} />
+              <Route path="/AdsBanner" element ={<AdsBanner/>} />
 
 
             </Routes>
