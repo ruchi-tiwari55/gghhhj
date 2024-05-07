@@ -1,33 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFolderOpen, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 function UserForm() {
   const [userData, setUserData] = useState({
-    name: '',
-    mobile: '',
+    firstName: '',
+    phoneNumber: '',
     email: '',
-    state: '',
+    country: '',
     city: '',
-    edit: '',
     password: ''
   });
-  const [users, setUsers] = useState([
-    { name: 'John Doe', mobile: '1234567890', email: 'john@example.com', password: "123@aman" , state: 'Bihar', city: "Gaya"},
-    { name: 'Jane Smith', mobile: '9876543210', email: 'jane@example.com', password: "987@abcd" , state: 'Haryana', city: "Gurgaon" },
-    // Add more example data if needed
-  ]);
+  const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage] = useState(5); // Number of users to display per page
+  const [usersPerPage] = useState(5);
 
-  // Pagination logic
+  useEffect(() => {
+    axios.get('https://lzycrazy-tracking-backend.onrender.com/v1/users/list')
+      .then(response => {
+        if (response.data && response.data.user) {
+          setUsers(response.data.user); // Update to use response.data.user
+        } else {
+          console.error('Invalid response data:', response.data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching users:', error);
+      });
+  }, []);
+
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = users.filter(user => {
-    const values = Object.values(user).join(' ').toLowerCase();
-    return values.includes(searchTerm.toLowerCase());
-  }).slice(indexOfFirstUser, indexOfLastUser);
+  const currentUsers = Array.isArray(users) ? users.slice(indexOfFirstUser, indexOfLastUser) : [];
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -37,7 +43,7 @@ function UserForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setUsers([...users, userData]);
-    setUserData({ name: '', mobile: '', email: '',password: '', state: '',city: '', edit: '' });
+    setUserData({ firstName: '', phoneNumber: '', email: '', password: '', country: '', city: '' });
   };
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -45,55 +51,44 @@ function UserForm() {
   return (
     <div style={{ width: '80%', margin: '20px auto', padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '5px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
       <h2 style={{ textAlign: 'center', marginBottom: '20px', color: '#333', textTransform: 'uppercase' }}>View Users</h2>
-      <input 
-        type="text" 
-        placeholder="Search..." 
-        value={searchTerm} 
-        onChange={(e) => setSearchTerm(e.target.value)}
-        style={{ marginBottom: '20px', padding: '8px', borderRadius: '5px', border: '1px solid #ddd', width: '100%', boxSizing: 'border-box' }}
-      />
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
-           <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>S.No.</th>
+            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>S.No.</th>
             <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Name</th>
             <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Mobile No.</th>
             <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Email</th>
-            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>password</th>
+            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Password</th>
             <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>State</th>
             <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>City</th>
             <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Edit</th>
             <th style={{ padding: '10px', borderBottom: '1px solid #ddd', backgroundColor: '#f2f2f2' }}>Delete</th>
-
-
-
           </tr>
         </thead>
         <tbody>
           {currentUsers.map((user, index) => (
             <tr key={index}>
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{index + 1 + (currentPage - 1) * usersPerPage}</td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.name}</td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.mobile}</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.firstName}</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.phoneNumber}</td>
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.email}</td>
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.password}</td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.state}</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.country}</td>
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.city}</td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.edit}
-                  <FontAwesomeIcon
-                    icon={faEdit}
-                    style={{ cursor: 'pointer', color: '#007bff', marginRight: '10px' }}
-                    onClick={() => console.log('Edit clicked for', user.categoryname)}
-                  />
-                </td>
-                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.delete}
-                  <FontAwesomeIcon
-                     icon={faTrashAlt}
-                    style={{ cursor: 'pointer', color: '#ff4c4c' }}
-                    onClick={() => console.log('Delete clicked for', user.categoryname)}
-                  />
-                </td>
-
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
+                <FontAwesomeIcon
+                  icon={faEdit}
+                  style={{ cursor: 'pointer', color: '#007bff', marginRight: '10px' }}
+                  onClick={() => console.log('Edit clicked for', user.firstName, user.lastName)}
+                />
+              </td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
+                <FontAwesomeIcon
+                  icon={faTrashAlt}
+                  style={{ cursor: 'pointer', color: '#ff4c4c' }}
+                  onClick={() => console.log('Delete clicked for', user.firstName, user.lastName)}
+                />
+              </td>
             </tr>
           ))}
         </tbody>
