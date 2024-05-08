@@ -7,40 +7,39 @@ function UserList() {
   const [users, setUsers] = useState([]);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
-  console.log(users,"rrrrrrrrrrrrrrrrrrrrrrrrrrr")
 
   useEffect(() => {
     // Fetch data from the API
-    fetch('https://lzycrazy-backend.onrender.com/api/contacts')
+    fetch('https://lzycrazy-tracking-backend.onrender.com/v1/contact/list')
       .then(response => response.json())
-      .then(data => setUsers(data))
+      .then(data => setUsers(data?.contacts
+      ))
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
   const handleDelete = (userId) => {
-    fetch(`https://lzycrazy-backend.onrender.com/api/contacts/${userId}`, {
-      method: 'DELETE',
-    })
-      .then((response) => {
-        if (response.ok) {
-          setUsers(users.filter((user) => user._id !== userId));
-          setShowSuccessPopup(true);
-          setTimeout(() => {
-            setShowSuccessPopup(false);
-          }, 5000);
-        } else {
-          console.error('Error deleting user:', response.statusText);
-        }
-      })
-      .catch((error) => console.error('Error deleting user:', error));
+    // fetch(`https://lzycrazy-backend.onrender.com/api/contacts/${userId}`, {
+    //   method: 'DELETE',
+    // })
+    //   .then((response) => {
+    //     if (response) {
+    //       setUsers(users.filter((user) => user._id !== userId));
+    //       setShowSuccessPopup(true);
+    //       setTimeout(() => {
+    //         setShowSuccessPopup(false);
+    //       }, 5000);
+    //     } else {
+    //       console.error('Error deleting user:', response.statusText);
+    //     }
+    //   })
+    //   .catch((error) => console.error('Error deleting user:', error));
   };
 
   // Pagination logic
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = users
-    .filter(user => {
-      const values = Object.values(user).join(' ').toLowerCase();
+  const currentUsers = users?.filter(user => {
+      const values = Object.values(user)?.join(' ').toLowerCase();
       return values.includes(searchTerm.toLowerCase());
     })
     .slice(indexOfFirstUser, indexOfLastUser);
@@ -97,7 +96,7 @@ function UserList() {
           {currentUsers.map((user, index) => (
             <tr key={index}>
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{index + 1 + (currentPage - 1) * usersPerPage}</td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.name}</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user?.userName}</td>
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.businessprofile}</td>
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.phone}</td>
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.email}</td>
