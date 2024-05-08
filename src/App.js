@@ -21,6 +21,8 @@ import BannerDetails from './component/NavItems/BannerDetails/BannerDetails';
 import AddSubcategory from './component/NavItems/AddSubcategory/AddSubcategory';
 import ShopCategory from './component/NavItems/ShopCategory/ShopCategory';
 import AdsBanner from './component/NavItems/AdsBanner/AdsBanner';
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -68,6 +70,7 @@ function App() {
       {/* ) : ( */}
         <Login loggedIn={handleLogin} />
       {/* )} */}
+        <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }

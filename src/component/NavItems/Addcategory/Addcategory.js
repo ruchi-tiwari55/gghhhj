@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Addcategory.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolderOpen, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { toast } from 'react-toastify';
 
 function App() {
   const [formData, setFormData] = useState({
@@ -14,52 +15,84 @@ function App() {
 
   const handleInputChange = (event) => {
     const { name, type, value, files } = event.target;
-    let newValue = type === 'file' ? (files[0] || null) : value;
+    let newValue = type === 'file' ? files[0] : value;
 
     if (type === 'file' && files.length > 0) {
-      // Create a URL for the uploaded file to show a preview
-      const previewUrl = URL.createObjectURL(files[0]);
-      setFormData({
-        ...formData,
-        [name]: newValue,
-        avatarPreview: previewUrl, // Update the preview URL
-      });
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setFormData({
+          ...formData,
+          [name]: files[0],
+          avatarPreview: reader.result, // Update the preview URL
+        });
+      };
+
+      reader.readAsDataURL(files[0]); // Read the selected file as data URL
     } else {
-      setFormData({ ...formData, [name]: newValue });
+      setFormData({ ...formData, [name]: value });
     }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const formToSend = new FormData();
-    formToSend.append('Categoryname', formData.Categoryname);
-    formToSend.append('sequence', formData.sequence);
-    formToSend.append('formType', formData.formType);
-    if (formData.avatar) {
-      formToSend.append('avatar', formData.avatar);
+    const { Categoryname, sequence, formType, avatar } = formData;
+
+    if (!Categoryname || !sequence || !formType || !avatar) {
+      console.error('All fields are required.');
+      return;
     }
 
-    try {
-      const response = await fetch(
-        'https://lzycrazy-backend.onrender.com/api/admins/create-category',
-        {
-          method: 'POST',
-          body: formToSend,
-        }
-      );
+    const reader = new FileReader();
+    reader.readAsDataURL(avatar);
 
-      if (response.ok) {
-        console.log('Form submitted successfully!');
-      } else {
-        console.error('Form submission failed.');
-      }
-    } catch (error) {
-      console.error('An error occurred during form submission:', error);
-    }
+    reader.onload = () => {
+      const base64Image = reader.result.split(',')[1];
+
+      const rawData = {
+        categoryName: Categoryname,
+        addSequence: sequence,
+        formType: formType,
+        addIcon: '"https://example.com/image.jpg"',
+      };
+
+      fetch("https://lzycrazy-tracking-backend.onrender.com/categories/add", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(rawData),
+      })
+        .then(response => response.text())
+        .then(result => {
+          console.log('Category added successfully:', result);
+          toast.success("Category added successfully!", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+          });
+          // Optionally reset form fields or update state upon successful addition
+          setFormData({
+            Categoryname: '',
+            sequence: '',
+            avatar: null,
+            formType: '',
+            avatarPreview: null,
+          });
+        })
+        .catch(error => console.error('Error adding category:', error));
+    };
+
+    reader.onerror = () => {
+      console.error('Error reading file.');
+    };
   };
 
-  // User management table setup
   const [users, setUsers] = useState([
     {
       categoryname: 'Farm',
@@ -144,6 +177,8 @@ function App() {
               id="avatar"
               name="avatar"
               onChange={handleInputChange}
+              accept="image/*" // Allow only image files
+              required
             />
             {formData.avatarPreview && (
               <img
@@ -155,7 +190,7 @@ function App() {
           </div>
 
           <div className="form-group submit-group">
-            <button type="submit" className="submi-btn">
+            <button type="submit" className="submit-btn">
               Submit
             </button>
           </div>
@@ -265,9 +300,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
