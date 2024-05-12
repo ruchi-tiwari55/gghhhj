@@ -11,6 +11,8 @@ function AdsBanner() {
     bannerName: "",
     sequence: "",
     bannerLink: "",
+    sequence: "",
+    addsequence :"",
     bannerImage: null,
   });
 
@@ -72,13 +74,14 @@ function AdsBanner() {
       <div className="form-container with-navbar-gap">
         <div className="heading-card">
           <div className="header-product">
-            <h2>LzyCrazy Banner</h2>
+            <h2 className="formm"> Add Banners</h2>
           </div>
         </div>
         <form onSubmit={handleSubmit} className="form" style={{ width: "100%" }}>
           {/* Select Category */}
           <div className="form-box">
-            <label className="label-box" htmlFor="category">Select Category:</label>
+            <label className="label-box" htmlFor="category"> Category:</label>
+            
             <select className="input-box"
               id="category"
               name="category"
@@ -86,13 +89,11 @@ function AdsBanner() {
               onChange={handleInputChange}
               required
             >
-              <option value="">--Select Category--</option>
-              <option value="Electronics">Sing Up </option>
-              <option value="Books">Hiring</option>
-              <option value="Fashion">Advertising</option>
-              <option value="Food">Business</option>
-              <option value="Fashion">Investor</option>
-              <option value="Food">Home</option>
+              <option value="">Select</option>
+              <option value="MARKET">Market</option>
+              <option value="Electronics">category </option>
+              <option value="Books">Shop</option>
+             
               {/* Add more categories as needed */}
             </select>
           </div>
@@ -101,10 +102,35 @@ function AdsBanner() {
 
           {/* Banner Name */}
           <div className="form-box">
-            <label className="label-box" htmlFor="bannerName">Banner Name:</label>
+            <label className="label-box" htmlFor="category">Select</label>
+            
+            <select className="input-box"
+              id="category"
+              name="category"
+              value={formData.category}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">Select</option>
+              <option value="MARKET">1</option>
+              <option value="Electronics">2</option>
+              <option value="Books">3</option>
+              <option value="Books">4</option>
+              <option value="Books">5</option>
+              <option value="Books">6</option>
+              <option value="Books">7</option>
+             
+              {/* Add more categories as needed */}
+            </select>
+          </div>
+
+
+          {/* Add Sequence */}
+          <div className="form-box">
+            <label className="label-box" htmlFor="sequence">Banner Name</label>
             <input className="input-box"
               type="text"
-              id="bannerName"
+              id="banner"
               name="bannerName"
               value={formData.bannerName}
               onChange={handleInputChange}
@@ -112,7 +138,8 @@ function AdsBanner() {
             />
           </div>
 
-          {/* Add Sequence */}
+             {/* banner name*/}
+
           <div className="form-box">
             <label className="label-box" htmlFor="sequence">Add Sequence:</label>
             <input className="input-box"
@@ -185,6 +212,8 @@ function AdsBanner() {
                   <td>{row.category}</td>
                   <td>{row.bannerName}</td>
                   <td>{row.sequence}</td>
+                  <td>{row.bannerName}</td>
+                  <td>{row.bannerImage}</td>
                   <td>
                     <a href={row.bannerLink} target="_blank" rel="noopener noreferrer">
                       {row.bannerLink}

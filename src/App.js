@@ -17,6 +17,7 @@ import { useState } from 'react'; // no Redux
 import ContactList from './component/NavItems/ContactList/ContactList';
 import AddShopusers from './component/NavItems/AddShopusers/AddShopusers';
 import ProductDescription from './component/NavItems/ProductDescription/ProductDescription';
+
 import BannerDetails from './component/NavItems/BannerDetails/BannerDetails';
 import AddSubcategory from './component/NavItems/AddSubcategory/AddSubcategory';
 import ShopCategory from './component/NavItems/ShopCategory/ShopCategory';
@@ -59,6 +60,7 @@ function App() {
               <Route path="/AddShopusers" element={<AddShopusers />} />
               <Route path="/ProductDescription" element={<ProductDescription />} />
               <Route path="/BannerDetails" element={<BannerDetails />} />
+
               <Route path="/AddSubcategory" element ={<AddSubcategory/>} />
               <Route path="/ShopCategory" element ={<ShopCategory/>} />
               <Route path="/AdsBanner" element ={<AdsBanner/>} />

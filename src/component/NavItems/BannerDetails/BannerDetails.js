@@ -86,13 +86,10 @@ function App() {
               onChange={handleInputChange}
               required
             >
-              <option value="">--Select Category--</option>
-              <option value="Electronics">Sing Up </option>
-              <option value="Books">Hiring</option>
-              <option value="Fashion">Advertising</option>
-              <option value="Food">Business</option>
-              <option value="Fashion">Investor</option>
-              <option value="Food">Home</option>
+              <option value=""> Select </option>
+              <option value="Electronics">Market  </option>
+              <option value="Books">Category</option>
+              <option value="Fashion">Shop</option>
               {/* Add more categories as needed */}
             </select>
           </div>
@@ -107,7 +104,7 @@ function App() {
               onChange={handleInputChange}
               required
             >
-              <option value="">--Select--</option>
+              <option value="">Select</option>
               <option value="Electronics">1</option>
               <option value="Books">2</option>
               <option value="Fashion">3</option>
