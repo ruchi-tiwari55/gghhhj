@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Addusers.css'; // Import CSS file
+import { toast } from 'react-toastify';
 
 function FormPage() {
   const [formData, setFormData] = useState({
@@ -13,10 +14,52 @@ function FormPage() {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
-
+useEffect(()=>{
+async function getData () {
+  try{
+const resData = await fetch("https://lzycrazy-tracking-backend.onrender.com/v1/users/list");
+const jsnData = await resData.json()
+console.log(jsnData)
+  }catch (error)     { 
+    console.error();
+  }
+}
+getData()
+},[])
+  
   const handleSubmit = (event) => {
+    let nameSplit= formData.name.split(" ");
+    let body={
+      ...formData,
+      phoneNumber:formData.mobile,
+      firstName:nameSplit[0],
+      lastName:nameSplit[1]?nameSplit.slice(1).join(" "):""      
+    }
     event.preventDefault();
-    console.log(formData);
+    fetch("https://lzycrazy-tracking-backend.onrender.com/v1/users/create",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(body)
+    }).then(res=>res.json())
+    .then(res=>{
+      setFormData({
+        name: '',
+        mobile: '',
+        email: '',
+        password: ''
+      })
+      toast.success(res.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
+    })
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import "./BannerDetails.css";
@@ -13,6 +13,20 @@ function App() {
     bannerLink: "",
     bannerImage: null,
   });
+
+  useEffect(()=>{
+    async function getData () {
+      try{
+    const resData = await fetch("https://lzycrazy-tracking-backend.onrender.com/lzycrazyadd/getall");
+    const jsnData = await resData.json()
+    console.log(jsnData)
+      }catch (error)     { 
+        console.error();
+      }
+    }
+    getData()
+    },[])
+      
 
   const [tableData, setTableData] = useState([
     {

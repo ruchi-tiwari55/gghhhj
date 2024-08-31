@@ -3,6 +3,22 @@
 .header-product{
   margin-left: -850px;
 }
+.form-container with-navbar-gap{
+  width: 80%; /* Example: 80% of the viewport width */
+  margin: 0 auto; /* Center the container */
+}
+/* Media query for tablets */
+@media screen and (max-width: 768px) {
+  .form-container with-navbar-gap {
+    width: 90%; /* Adjust width for tablets */
+  }
+}
+/* Media query for mobile devices */
+@media screen and (max-width: 480px) {
+  .form-container with-navbar-gap{
+    width: 95%; /* Adjust width for mobile devices */
+  }
+}
 
 .input-box{
   margin-left: 300px;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons';
 import { faBoxOpen } from '@fortawesome/free-solid-svg-icons';
@@ -20,6 +20,20 @@ function AddShopUserForm() {
     area: '',
     aboutUs: '',
   });
+             
+  useEffect(()=>{
+    async function getData () {
+      try{
+    const resData = await fetch("https://lzycrazy-tracking-backend.onrender.com/ProductDesc/getall");
+    const jsnData = await resData.json()
+    console.log(jsnData)
+      }catch (error)     { 
+        console.error();
+      }
+    }
+    getData()
+    },[])
+       
 
   const handleInputChange = (event) => {
     const { name, value, type, files } = event.target;

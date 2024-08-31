@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function UserForm() {
   const [userData, setUserData] = useState({
@@ -34,6 +35,7 @@ function UserForm() {
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = Array.isArray(users) ? users.slice(indexOfFirstUser, indexOfLastUser) : [];
+  console.log(currentUsers,"hhhhhhhhhhhhhhh")
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -46,7 +48,33 @@ function UserForm() {
     setUserData({ firstName: '', phoneNumber: '', email: '', password: '', country: '', city: '' });
   };
 
+  const handleDelete=(user)=>{
+    fetch(`https://lzycrazy-tracking-backend.onrender.com/v1/users/delete/${user._id}`,{
+      method:"DELETE",
+      // headers:{
+      //   "Content-Type":"application/json"
+      // },
+      // body:JSON.stringify(body)
+    }).then(res=>res.json())
+    .then(res=>{
+     
+      toast.success(res.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
+    })
+  }
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const handleUpdate = (id)=>{
+    
+  }
 
   return (
     <div style={{ width: '80%', margin: '20px auto', padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '5px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
@@ -79,14 +107,15 @@ function UserForm() {
                 <FontAwesomeIcon
                   icon={faEdit}
                   style={{ cursor: 'pointer', color: '#007bff', marginRight: '10px' }}
-                  onClick={() => console.log('Edit clicked for', user.firstName, user.lastName)}
+                  // onClick={() => console.log('Edit clicked for', user.firstName, user.lastName)}
+                  onClick={()=> handleUpdate(user._id)}
                 />
               </td>
               <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
                 <FontAwesomeIcon
                   icon={faTrashAlt}
                   style={{ cursor: 'pointer', color: '#ff4c4c' }}
-                  onClick={() => console.log('Delete clicked for', user.firstName, user.lastName)}
+                  onClick={() => handleDelete(user)}
                 />
               </td>
             </tr>
